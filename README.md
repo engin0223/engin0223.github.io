@@ -1,20 +1,22 @@
+---
+
 # 📊 KTÜ Not Hesaplayıcı (İstatistiksel Değerlendirme)
 
-[![Cloudflare'e Dağıtım](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/kullanıcı-adınız/ktu-not-hesaplayıcısı)
+[![GitHub Pages'da Görüntüle](https://img.shields.io/badge/GitHub%20Pages-Live-blue?logo=github)](https://engin0223.github.io/ktuharfnotu/)
 
 ## Projeye Genel Bakış
 
-Bu proje, **Next.js + TypeScript** ile geliştirilmiş ve **Cloudflare Workers** üzerinde dağıtılmış bir **istatistiksel not hesaplayıcıdır**.
-Karadeniz Teknik Üniversitesi (KTÜ) notlandırma yönetmeliklerini kodlar ve sınıf sınav dağılımlarından öğrenci harf notlarını tahmin etmek için gelişmiş istatistiksel yöntemler kullanır.
+Bu proje, **Next.js + TypeScript** ile geliştirilmiş bir **istatistiksel not hesaplayıcıdır**.
+Karadeniz Teknik Üniversitesi (KTÜ) notlandırma yönetmeliklerini uygular ve sınıf sınav dağılımlarına dayanarak öğrenci harf notlarını tahmin etmek için istatistiksel yöntemler kullanır.
 
 Uygulama:
 
-* Vize ve final sınav özet istatistiklerini (ortalama, standart sapma) kabul eder
-* Vize ve final arasındaki korelasyon katsayısı $p$’yi kabul eder
+* Vize ve final sınav özet istatistiklerini (ortalama, standart sapma) girdi olarak alır
+* Vize ve final arasındaki korelasyon katsayısını $p$’yi hesaplar ve kullanır
 * Ağırlıklı ders notunu (HBN) ve dağılımını hesaplar
 * KTÜ değerlendirme kurallarını uygular (T-puanı yöntemi, mutlak yöntem, fakülteye özgü final eşikleri)
 
-> **Not:** Finansal nedenlerden dolayı özel bir alan adı satın alınmamıştır; uygulama şu anda ücretsiz Cloudflare Workers URL’si altında barındırılmaktadır. Uygun olduğunda özel bir alan adı eklenecektir.
+> **Not:** Uygulama **GitHub Pages** üzerinde ücretsiz olarak barındırılmaktadır.
 
 ---
 
@@ -36,8 +38,6 @@ Bu bölüm, uygulamada kullanılan matematiksel formülleri adım adım açıkla
 
 ### 1️⃣ Ağırlıklı Ders Puanı (HBN)
 
-Öğrencinin ağırlıklı notu:
-
 $$
 H = w_1 X + w_2 Y
 $$
@@ -46,47 +46,19 @@ $$
 
 ### 2️⃣ HBN Ortalaması
 
-Doğrusal beklenti özelliğini kullanarak:
-
 $$
-\begin{align}
-\mu_H &= \mathbb{E}[H] \\
-       &= \mathbb{E}[w_1 X + w_2 Y] \\
-       &= w_1 \mu_X + w_2 \mu_Y
-\end{align}
+\mu_H = w_1 \mu_X + w_2 \mu_Y
 $$
 
-> Yani HBN’nin beklenen değeri, vize ve finalin ağırlıklı ortalamasıdır.
+> HBN’nin beklenen değeri, vize ve finalin ağırlıklı ortalamasıdır.
 
 ---
 
 ### 3️⃣ HBN Varyansı
 
-İki rastgele değişkenin toplamı için varyans özdeşliği:
-
 $$
-\mathrm{Var}(X + Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2 \, \mathrm{Cov}(X,Y)
+\mathrm{Var}(H) = w_1^2 \sigma_X^2 + w_2^2 \sigma_Y^2 + 2 w_1 w_2 p , \sigma_X \sigma_Y
 $$
-
-Ağırlıklı toplam için:
-
-$$
-\mathrm{Var}(H) = w_1^2 \, \mathrm{Var}(X) + w_2^2 \, \mathrm{Var}(Y) + 2 w_1 w_2 \, \mathrm{Cov}(X,Y)
-$$
-
-Kovaryansı korelasyon katsayısı ile ifade edersek:
-
-$$
-\mathrm{Cov}(X,Y) = p \, \sigma_X \sigma_Y
-$$
-
-Son formül:
-
-$$
-\mathrm{Var}(H) = w_1^2 \sigma_X^2 + w_2^2 \sigma_Y^2 + 2 w_1 w_2 p \, \sigma_X \sigma_Y
-$$
-
-HBN standart sapması:
 
 $$
 \sigma_H = \sqrt{\mathrm{Var}(H)}
@@ -98,11 +70,11 @@ $$
 
 ## Özellikler
 
-* 📐 **İstatistiksel Hesaplama:** Korelasyon kullanılarak tam HBN ortalaması ve varyans hesaplaması
-* 🎓 **Harf Notu Tahmini:** Sınıf büyüklüğüne göre T-puan sistemi veya mutlak notlandırma yöntemi
-* 🖥️ **Etkileşimli Kullanıcı Arayüzü:** React ve Tailwind CSS ile uyumlu
-* ☁️ **Cloudflare Dağıtımı:** Küresel erişim için hafif statik barındırma
-* 🔒 **Fakülte Kuralları:** Bölüm başına yapılandırılabilir minimum son eşikler
+* 📐 **İstatistiksel Hesaplama:** Korelasyon kullanarak tam HBN ortalaması ve varyans hesaplaması
+* 🎓 **Harf Notu Tahmini:** T-puan sistemi veya mutlak notlandırma yöntemi
+* 🖥️ **Etkileşimli Kullanıcı Arayüzü:** React + Tailwind CSS ile modern tasarım
+* 🌐 **GitHub Pages Yayını:** Ek sunucu gerekmeden ücretsiz ve hızlı erişim
+* 🔒 **Fakülte Kuralları:** Bölüm bazlı final eşiği yapılandırması
 
 ---
 
@@ -110,33 +82,7 @@ $$
 
 * Next.js (React + TypeScript)
 * Tailwind CSS
-* Cloudflare Workers (statik dağıtım)
+* GitHub Pages (statik barındırma)
 * npm / yarn / pnpm / bun uyumlu
 
 ---
-
-## Başlarken
-
-```bash
-git clone https://github.com/kullanıcı-adınız/ktu-grade-calculator
-cd ktu-grade-calculator
-npm install
-npm run dev
-# open http://localhost:3000
-```
-
----
-
-## Dağıtım
-
-```bash
-npm run build && npm run deploy
-```
-
----
-
-## Bu proje neden özgeçmişe uygun?
-
-* **Resmi akademik kuralları** sağlam bir algoritmaya dönüştürmeyi gösterir
-* **İstatistiksel akıl yürütme, TypeScript mimarisi, kullanıcı arayüzü tasarımı ve bulut dağıtımında** yetkinlik gösterir
-* Alan mantığı (istatistikler) ve sunum (Next.js kullanıcı arayüzü) arasındaki net ayrım — üretim kalitesinde kodlama uygulamaları
