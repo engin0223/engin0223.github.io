@@ -230,7 +230,7 @@ export default function GradeCalculatorPage() {
                             <input type="number" id="finalStdDev" value={inputs.finalStdDev} onChange={handleInputChange} className="w-full p-2 border border-gray-300 rounded-md mt-1 text-gray-700" />
                         </div>
                         <div>
-                             <label htmlFor="correlation" className="block text-sm font-medium text-gray-700">Korelasyon Katsayısı (p) [alabileceğiniz en düşük notu görmek için -1 en yükseği için 1'i seçebilirsiniz.]</label>
+                             <label htmlFor="correlation" className="block text-sm font-medium text-gray-700">Korelasyon Katsayısı - p (alabileceğiniz en düşük notu görmek için -1 en yükseği için 1'i seçebilirsiniz.)</label>
                              <div className="flex items-center space-x-4 mt-1">
                                 <input type="range" id="correlation" min="-1" max="1" step="0.05" value={inputs.correlation} onChange={handleInputChange} className="w-full" />
                                 <span className="font-mono text-sm text-gray-700 bg-gray-100 p-2 rounded-md">{parseFloat(inputs.correlation).toFixed(2)}</span>
